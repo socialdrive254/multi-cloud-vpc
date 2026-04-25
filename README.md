@@ -1,36 +1,42 @@
-# AWS Multi-Tier VPC Architecture
-
-A production-style VPC on AWS with public, private, and isolated subnets
-across two availability zones, demonstrating secure network segmentation,
-controlled internet access, and defense-in-depth using security groups and NACLs.
-
+# Multi-Cloud VPC Architecture
+ 
+A production-style VPC built on both AWS and GCP, demonstrating secure
+network segmentation, controlled internet access, and high availability
+across multiple availability zones.
+ 
+## Why multi-cloud?
+ 
+Building the same architecture on two platforms proves understanding of
+networking fundamentals rather than vendor-specific knowledge. The design
+decisions, CIDR planning, and security model are identical — only the
+implementation differs.
+ 
 ## Architecture
-
-![Architecture Diagram](diagrams/architecture.png)
-
-## What this project demonstrates
-
-- VPC design and CIDR planning
-- Public/private/isolated subnet segmentation
-- Internet Gateway and NAT Gateway routing
-- Security groups vs NACLs (stateful vs stateless filtering)
-- Bastion host / SSM Session Manager access patterns
-- Multi-AZ design for high availability
-
-## Tech stack
-
-- AWS (VPC, EC2, RDS, NAT Gateway, Internet Gateway)
-- (Later) Terraform for infrastructure-as-code
-
-## Documentation
-
-1. [Planning & CIDR design](docs/01-planning.md)
-2. [VPC and subnet setup](docs/02-vpc-setup.md)
-3. [Routing configuration](docs/03-subnets-routing.md)
-4. [Security groups and NACLs](docs/04-security.md)
-5. [Testing the architecture](docs/05-testing.md)
-6. [Lessons learned](docs/06-lessons-learned.md)
-
+ 
+### GCP (active)
+![GCP Architecture](gcp/diagrams/architecture.png)
+ 
+### AWS (planned)
+![AWS Architecture](aws/diagrams/architecture.png)
+ 
+## GCP implementation
+ 
+| Subnet   | CIDR          | Region        | Purpose                      |
+|----------|---------------|---------------|------------------------------|
+| public   | 10.0.1.0/24   | europe-west1  | Web servers                  |
+| private  | 10.0.11.0/24  | europe-west1  | Application servers          |
+| isolated | 10.0.21.0/24  | europe-west1  | Database (no internet)       |
+ 
+### Documentation
+1. [Planning & CIDR design](gcp/docs/01-planning.md)
+2. [VPC and subnet setup](gcp/docs/02-vpc-setup.md)
+3. [Firewall rules and routing](gcp/docs/03-firewall-routing.md)
+4. [Testing the architecture](gcp/docs/04-testing.md)
+5. [Lessons learned](gcp/docs/05-lessons-learned.md)
+## AWS implementation (on hold)
+ 
+1. [Planning & CIDR design](aws/docs/01-planning.md)
 ## Status
-
-🚧 In progress
+ 
+🟢 GCP — in progress
+🟡 AWS — on hold (resuming soon)
